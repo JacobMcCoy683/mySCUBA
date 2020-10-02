@@ -56,4 +56,25 @@ public class Purchase {
 		
 		return "PaymentEntryForm";
 	}
+	
+	@RequestMapping(path = "/submitPayment", method = RequestMethod.POST)
+	public String submitPayment(@ModelAttribute("payment") PaymentInfo payment, HttpServletRequest request) {
+		request.getSession().setAttribute("payment", payment);
+		
+		return "redirect:/purchase/shippingEntry";
+	}
+	
+	@RequestMapping(path = "/shippingEntry", method = RequestMethod.GET)
+	public String viewShippingEntryForm(HttpServletRequest request, HttpServletResponse respone) {
+		request.setAttribute("shipping", new ShippingInfo());
+		
+		return "ShippingEntryForm";
+	}
+	
+	@RequestMapping(path = "/submitShipping", method = RequestMethod.POST)
+	public String submitShipping(@ModelAttribute("shipping") ShippingInfo shipping, HttpServletRequest request) {
+		request.getSession().setAttribute("shipping", shipping);
+		
+		return "redirect:/purchase/viewOrder";
+	}
 }

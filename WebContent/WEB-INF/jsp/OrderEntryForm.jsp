@@ -24,7 +24,6 @@
 		<td colspan="2"><input type="submit" value="Purchase"></td>
 	  </tr>
 	
-
     </table>
 </form:form>
 </body>
