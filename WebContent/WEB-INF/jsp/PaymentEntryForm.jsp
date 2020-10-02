@@ -9,19 +9,23 @@
 	<title>Payment Entry</title>
 </head>
 <body>
-<form:form modelAttribute="order" method="post" action="submitPayment">
+<form:form modelAttribute="payment" method="post" action="submitPayment">
 
     <table>
-	<c:forEach items="${order.items}" var="item" varStatus="loop">
 		<tr>
-			<td><form:hidden path="items[${loop.index}].name" value="${item.name}"/><c:out value="${item.name}"></c:out></td>
-			<td>$<form:hidden path="items[${loop.index}].price" value="${item.name}"/><c:out value="${item.price}"></c:out></td>
-			<td><form:input path="items[${loop.index}].quantity" /></td>
+			<td><p>Enter Credit Card Number: </p><form:input path="${payment.creditCardNumber}" /></td>
 		</tr>
-	</c:forEach>
-
+		<tr>
+			<td><p>Enter Expiration Date: </p><form:input path="${payment.expirationDate}" /></td>
+		</tr>
+		<tr>
+			<td><p>Enter cvvCode: </p><form:input path="${payment.cvvCode}" /></td>
+		</tr>
+		<tr>
+			<td><p>Enter cardHolderName: </p><form:input path="${payment.cardHolderName}" /></td>
+		</tr>
 	  <tr>
-		<td colspan="2"><input type="submit" value="Purchase"></td>
+		<td colspan="2"><input type="submit" value="Submit Payment Details"></td>
 	  </tr>
 	
     </table>

@@ -52,6 +52,7 @@ public class Purchase {
 	
 	@RequestMapping(path = "/paymentEntry", method = RequestMethod.GET)
 	public String viewPaymentEntryForm(HttpServletRequest request, HttpServletResponse respone) {
+		
 		request.setAttribute("payment", new PaymentInfo());
 		
 		return "PaymentEntryForm";
@@ -74,7 +75,14 @@ public class Purchase {
 	@RequestMapping(path = "/submitShipping", method = RequestMethod.POST)
 	public String submitShipping(@ModelAttribute("shipping") ShippingInfo shipping, HttpServletRequest request) {
 		request.getSession().setAttribute("shipping", shipping);
-		
+//		request.getSession().setAttribute("order", order);
 		return "redirect:/purchase/viewOrder";
+	}
+	@RequestMapping(path = "/viewOrder", method = RequestMethod.GET)
+	public String viewViewOrderForm(HttpServletRequest request, HttpServletResponse respone) {
+		
+		request.setAttribute("shipping",request.getSession().getAttribute("shipping"));
+		
+		return "ViewOrder";
 	}
 }
