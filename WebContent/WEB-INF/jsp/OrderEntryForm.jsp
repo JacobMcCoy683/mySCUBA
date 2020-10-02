@@ -15,7 +15,7 @@
 	<c:forEach items="${order.items}" var="item" varStatus="loop">
 		<tr>
 			<td><form:hidden path="items[${loop.index}].name" value="${item.name}"/><c:out value="${item.name}"></c:out></td>
-			<td>$<form:hidden path="items[${loop.index}].price" value="${item.name}"/><c:out value="${item.price}"></c:out></td>
+			<td>$<form:hidden path="items[${loop.index}].price" value="${item.price}"/><c:out value="${item.price}"></c:out></td>
 			<td><form:input path="items[${loop.index}].quantity" /></td>
 		</tr>
 	</c:forEach>

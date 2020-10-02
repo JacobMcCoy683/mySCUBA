@@ -13,16 +13,16 @@
 
     <table>
 		<tr>
-			<td><p>Enter Credit Card Number: </p><form:input path="${payment.creditCardNumber}" /></td>
+			<td><p>Enter Credit Card Number: </p><form:input path="creditCardNumber" /></td>
 		</tr>
 		<tr>
-			<td><p>Enter Expiration Date: </p><form:input path="${payment.expirationDate}" /></td>
+			<td><p>Enter Expiration Date: </p><form:input path="expirationDate" /></td>
 		</tr>
 		<tr>
-			<td><p>Enter cvvCode: </p><form:input path="${payment.cvvCode}" /></td>
+			<td><p>Enter cvvCode: </p><form:input path="cvvCode" /></td>
 		</tr>
 		<tr>
-			<td><p>Enter cardHolderName: </p><form:input path="${payment.cardHolderName}" /></td>
+			<td><p>Enter cardHolderName: </p><form:input path="cardHolderName" /></td>
 		</tr>
 	  <tr>
 		<td colspan="2"><input type="submit" value="Submit Payment Details"></td>

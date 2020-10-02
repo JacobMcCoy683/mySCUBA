@@ -14,25 +14,25 @@
 
     <table>
     	<tr>
-			<td><p>Enter name: </p><form:input path="${shipping.name}" /></td>
+			<td><p>Enter name: </p><form:input path="name" /></td>
 		</tr>
 		<tr>
-			<td><p>Enter addressLine1: </p><form:input path="${shipping.addressLine1}" /></td>
+			<td><p>Enter addressLine1: </p><form:input path="addressLine1" /></td>
 		</tr>
 		<tr>
-			<td><p>Enter addressLine2: </p><form:input path="${shipping.addressLine2}" /></td>
+			<td><p>Enter addressLine2: </p><form:input path="addressLine2" /></td>
 		</tr>
 		<tr>
-			<td><p>Enter city: </p><form:input path="${shipping.city}" /></td>
+			<td><p>Enter city: </p><form:input path="city" /></td>
 		</tr>
 		<tr>
-			<td><p>Enter state: </p><form:input path="${shipping.state}" /></td>
+			<td><p>Enter state: </p><form:input path="state" /></td>
 		</tr>
 		<tr>
-			<td><p>Enter zip: </p><form:input path="${shipping.zip}" /></td>
+			<td><p>Enter zip: </p><form:input path="zip" /></td>
 		</tr>
 	  <tr>
-		<td colspan="2"><input type="submit" value="Submit Shipping"></td>
+		<td colspan="2"><input type="submit" value="Submit Shipping Details"></td>
 	  </tr>
 	
     </table>

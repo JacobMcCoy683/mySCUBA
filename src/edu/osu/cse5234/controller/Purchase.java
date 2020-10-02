@@ -1,5 +1,6 @@
 package edu.osu.cse5234.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -54,35 +55,36 @@ public class Purchase {
 	public String viewPaymentEntryForm(HttpServletRequest request, HttpServletResponse respone) {
 		
 		request.setAttribute("payment", new PaymentInfo());
-		
 		return "PaymentEntryForm";
 	}
 	
 	@RequestMapping(path = "/submitPayment", method = RequestMethod.POST)
-	public String submitPayment(@ModelAttribute("payment") PaymentInfo payment, HttpServletRequest request) {
+	public String submitPayment(@ModelAttribute("payment") PaymentInfo payment, HttpServletRequest request,HttpServletResponse respone) {
 		request.getSession().setAttribute("payment", payment);
-		
 		return "redirect:/purchase/shippingEntry";
 	}
 	
 	@RequestMapping(path = "/shippingEntry", method = RequestMethod.GET)
 	public String viewShippingEntryForm(HttpServletRequest request, HttpServletResponse respone) {
 		request.setAttribute("shipping", new ShippingInfo());
-		
 		return "ShippingEntryForm";
 	}
 	
 	@RequestMapping(path = "/submitShipping", method = RequestMethod.POST)
-	public String submitShipping(@ModelAttribute("shipping") ShippingInfo shipping, HttpServletRequest request) {
+	public String submitShipping(@ModelAttribute("shipping") ShippingInfo shipping, HttpServletRequest request,HttpServletResponse respone) throws IOException {
 		request.getSession().setAttribute("shipping", shipping);
-//		request.getSession().setAttribute("order", order);
 		return "redirect:/purchase/viewOrder";
 	}
 	@RequestMapping(path = "/viewOrder", method = RequestMethod.GET)
-	public String viewViewOrderForm(HttpServletRequest request, HttpServletResponse respone) {
-		
-		request.setAttribute("shipping",request.getSession().getAttribute("shipping"));
-		
+	public String viewViewOrderForm(HttpServletRequest request, HttpServletResponse respone) throws IOException {
 		return "ViewOrder";
+	}
+	@RequestMapping(path = "/confirmOrder", method = RequestMethod.POST)
+	public String confirmOrder(@ModelAttribute("order") Order order, HttpServletRequest request) {
+		return "redirect:/purchase/viewConfirmation";
+	}
+	@RequestMapping(path = "/viewConfirmation", method = RequestMethod.GET)
+	public String viewViewConfirmationForm(HttpServletRequest request, HttpServletResponse respone) throws IOException {
+		return "Confirmation";
 	}
 }
