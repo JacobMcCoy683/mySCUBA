@@ -8,9 +8,24 @@
 	<meta charset="ISO-8859-1">
 	<title>Payment Entry</title>
 </head>
+<style>
+html, body {
+    height: 100%;
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+}
+</style>
 <body>
 <form:form modelAttribute="payment" method="post" action="submitPayment">
-
+	<h3>Enter Payment Details</h3>
     <table>
 		<tr>
 			<td><p>Enter Credit Card Number: </p><form:input path="creditCardNumber" /></td>
@@ -19,10 +34,10 @@
 			<td><p>Enter Expiration Date: </p><form:input path="expirationDate" /></td>
 		</tr>
 		<tr>
-			<td><p>Enter cvvCode: </p><form:input path="cvvCode" /></td>
+			<td><p>Enter cvv Code: </p><form:input path="cvvCode" /></td>
 		</tr>
 		<tr>
-			<td><p>Enter cardHolderName: </p><form:input path="cardHolderName" /></td>
+			<td><p>Enter Card Holder Name: </p><form:input path="cardHolderName" /></td>
 		</tr>
 	  <tr>
 		<td colspan="2"><input type="submit" value="Submit Payment Details"></td>
