@@ -1,16 +1,8 @@
 package edu.osu.cse5234.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @Controller
 @RequestMapping("/purchase")
 public class Purchase {
-	
 	
 	@RequestMapping(path = "/qty", method = RequestMethod.GET)
 	public void handleAjaxQuery(HttpServletRequest request, HttpServletResponse respone) throws Exception {
@@ -79,7 +70,12 @@ public class Purchase {
 	public String submitItems(@ModelAttribute("order") Order order, HttpServletRequest request) {
 		request.getSession().setAttribute("order", order);
 		System.out.println("SubmitSHIPPING"+order.getItems());
-		return "redirect:/purchase/paymentEntry";
+
+		if (ServiceLocator.getOrderProcessingService().validateItemAvailability(order)) {
+			return "redirect:/purchase/paymentEntry";
+		} else {
+			return "redirect:/purchase";
+		}
 	}
 	
 	@RequestMapping(path = "/paymentEntry", method = RequestMethod.GET)
@@ -118,6 +114,9 @@ public class Purchase {
 	@RequestMapping(path = "/confirmOrder", method = RequestMethod.POST)
 	public String confirmOrder(HttpServletRequest request) {
 		Order order = (Order)request.getSession().getAttribute("order");
+		
+		String confirmationCode = ServiceLocator.getOrderProcessingService().processOrder(order);
+		request.getSession().setAttribute("confirmationCode", confirmationCode);
 
 		if(order==null) System.out.println("ORDER IS NULL");
 		System.out.println(order.getItems());

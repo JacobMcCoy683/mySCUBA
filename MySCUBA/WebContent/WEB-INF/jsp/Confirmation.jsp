@@ -39,7 +39,7 @@
 </c:forEach>
 </table>
 <h1>Thank you!</h1>
-<p>Your order #78732 is on the way</p>
+<p>Your order number is: <c:out value = "${confirmationCode}"/></p>
 <br><br><br>
 <a href="/MySCUBA/purchase" style="width:100%" class="start_shopping btn-large waves-effect teal white-text darken-text-2"><b>Shop More</b></a>
 <br><br>
