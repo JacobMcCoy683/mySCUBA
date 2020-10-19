@@ -45,6 +45,8 @@ public class Purchase {
 //			Order order = (Order) request.getSession().getAttribute("order");
 //			System.out.println("New available qty of item 0->"+order.getItems().get(0).getAvailable());
 //		}
+		request.getSession().setAttribute("validQuantity", true);
+		
 		if(request.getSession().getAttribute("order") != null) {
 			
 			Order order = (Order)request.getSession().getAttribute("order");
@@ -74,6 +76,7 @@ public class Purchase {
 		if (ServiceLocator.getOrderProcessingService().validateItemAvailability(order)) {
 			return "redirect:/purchase/paymentEntry";
 		} else {
+			request.setAttribute("validQuantity", false);
 			return "redirect:/purchase";
 		}
 	}

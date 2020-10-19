@@ -12,6 +12,9 @@
 <body>
 <jsp:include page="./Header.jsp"></jsp:include>
 <div class="container">
+<c:if test = "${!validQuantity}">
+	<h5 style="color:#ff0000;">Sorry, there is currently not enough of your selected items in stock.<br>Please resubmit item quantities.</h5>
+</c:if>
 <form:form modelAttribute="order" method="post" action="purchase/submitItems">
 	<table class="centered highlight">
 		 
