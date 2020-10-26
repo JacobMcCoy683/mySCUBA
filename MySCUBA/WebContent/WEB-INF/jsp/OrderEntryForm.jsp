@@ -41,14 +41,13 @@
 					 <form:hidden path="items[${loop.index}].price" value="${item.price}"/><h5>$<c:out value="${item.price}"></c:out><h5>
 					</td>
 					
-					<form:hidden path="items[${loop.index}].available" value="${item.available}"/>
 					<td>
 						<div class="row">
 						<div class="col s5"></div>
 						<div class="col s2">	
 						<form:input style="font-size:25px; display:inline;" class="ajaxbtn" id="${loop.index}" type="number" path="items[${loop.index}].quantity" size="4" min="0" />
 						</div>
-						<div class="col s5">/${item.available}</div>
+						<div class="col s5"></div>
 						</div>
 					</td>
 			</tr>
@@ -68,7 +67,7 @@
     <br>
 <jsp:include page="./Footer.jsp"></jsp:include>
 <script>
-console.log("ON ORDER ENTRY FORM");
+/*console.log("ON ORDER ENTRY FORM");
 $(".ajaxbtn").on('click keyup',function(){
 	var curr_val = parseInt($(this).val());
 	console.log("Current quantity is:"+curr_val);
@@ -94,7 +93,7 @@ $(".ajaxbtn").on('click keyup',function(){
 	        console.log(result);
 	      },
 	});
-});
+});*/
 
 
 </script>

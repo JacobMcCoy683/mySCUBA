@@ -17,17 +17,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @RequestMapping("/purchase")
 public class Purchase {
 	
-	@RequestMapping(path = "/qty", method = RequestMethod.GET)
-	public void handleAjaxQuery(HttpServletRequest request, HttpServletResponse respone) throws Exception {
-		Order curr_order = (Order)request.getSession().getAttribute("order");
-		String item = (String) request.getParameter("item");
-	    String qty = curr_order.items.get(Integer.parseInt(item)).getAvailable();
-	    System.out.println("Quantity is:"+qty);
-	    
-	    respone.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-	    //respone.setCharacterEncoding("UTF-8"); // You want world domination, huh?
-	    respone.getWriter().write(qty.toString());  
-	}
+//	@RequestMapping(path = "/qty", method = RequestMethod.GET)
+//	public void handleAjaxQuery(HttpServletRequest request, HttpServletResponse respone) throws Exception {
+//		Order curr_order = (Order)request.getSession().getAttribute("order");
+//		String item = (String) request.getParameter("item");
+//	    String qty = curr_order.items.get(Integer.parseInt(item)).getAvailable();
+//	    System.out.println("Quantity is:"+qty);
+//	    
+//	    respone.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+//	    //respone.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+//	    respone.getWriter().write(qty.toString());  
+//	}
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String viewOrderEntryForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -51,7 +51,7 @@ public class Purchase {
 			
 			Order order = (Order)request.getSession().getAttribute("order");
 			for(int i=0; i < order.getItems().size(); i++) {
-				order.getItems().get(i).setQuantity("0");
+				order.getItems().get(i).setQuantity(0);
 			}
 			request.setAttribute("order", order);
 			
@@ -123,15 +123,15 @@ public class Purchase {
 
 		if(order==null) System.out.println("ORDER IS NULL");
 		System.out.println(order.getItems());
-		for(Item i: order.items) {
-			int updated_available = Integer.parseInt(i.getAvailable())-Integer.parseInt(i.getQuantity());
-			i.setAvailable(updated_available+"");
-			//i.setQuantity("0");
-		}
-		for(Item i: order.items) {
+//		for(Item i: order.items) {
 //			int updated_available = Integer.parseInt(i.getAvailable())-Integer.parseInt(i.getQuantity());
-			System.out.println(i.getAvailable());
-		}
+//			i.setAvailable(updated_available+"");
+//			//i.setQuantity("0");
+//		}
+//		for(Item i: order.items) {
+////			int updated_available = Integer.parseInt(i.getAvailable())-Integer.parseInt(i.getQuantity());
+//			System.out.println(i.getAvailable());
+//		}
 		request.getSession().setAttribute("order", order);
 		return "redirect:/purchase/viewConfirmation";
 	}

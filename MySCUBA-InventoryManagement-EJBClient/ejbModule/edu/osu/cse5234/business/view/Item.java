@@ -1,24 +1,86 @@
 package edu.osu.cse5234.business.view;
 
-public class Item implements java.io.Serializable{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="ITEM")
+public class Item implements java.io.Serializable{
+	
 	/**
 	 * Automatically generated serial
 	 */
+	public Item() 
+    { 
+        System.out.println("Item Constructor called"); 
+    } 
 	private static final long serialVersionUID = -495513525080800891L;
 	
-	String name;
-	String price;
-	String quantity;
-	String available;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="ID")
+	int id;
 	
-	public String getAvailable() {
-		return available;
+	@Column(name="ITEM_NUMBER")
+	int itemNumber;
+	
+	@Column(name="DESCRIPTION")
+	String description;
+	
+	@Column(name="NAME")
+	String name;
+	
+	@Column(name="PRICE")
+	String price;
+	
+	@Column(name="QUANTITY")
+	int quantity;
+	
+//	String available;
+	
+	public int getId() {
+		return id;
 	}
 
-	public void setAvailable(String available) {
-		this.available = available;
+	public void setId(int id) {
+		this.id = id;
 	}
+
+	public int getItemNumber() {
+		return itemNumber;
+	}
+
+	public void setItemNumber(int itemNumber) {
+		this.itemNumber = itemNumber;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+//	public String getAvailable() {
+//		return available;
+//	}
+//
+//	public void setAvailable(String available) {
+//		this.available = available;
+//	}
 
 	public String getName() {
 		return name;
@@ -36,11 +98,5 @@ public class Item implements java.io.Serializable{
 		this.price = price;
 	}
 	
-	public String getQuantity() {
-		return quantity;
-	}
 	
-	public void setQuantity(String quantity) {
-		this.quantity = quantity;
-	}
 }
