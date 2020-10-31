@@ -31,21 +31,21 @@
 				
 					<td colspan="2">
 					<div class="teal white-text">
-					<form:hidden path="LineItems[${loop.index}].name" value="${item.name}"/><h4><c:out value="${item.name}"></c:out></h4>
+					<form:hidden path="lineItems[${loop.index}].name" value="${item.name}"/><h4><c:out value="${item.name}"></c:out></h4>
 					</div>
-					<img style="max-width:50%;height:20%;" src="images/${loop.index}.jpg">
+					<img style="max-width:50%;height:20%;" src="<c:url value="images/${loop.index}.jpg" />">
 					</td>	
-					
+					<form:hidden path="lineItems[${loop.index}].itemNumber" value="${item.itemNumber}"/>
 					
 					<td colspan="2">
-					 <form:hidden path="LineItems[${loop.index}].price" value="${item.price}"/><h5>$<c:out value="${item.price}"></c:out><h5>
+					 <form:hidden path="lineItems[${loop.index}].price" value="${item.price}"/><h5>$<c:out value="${item.price}"></c:out><h5>
 					</td>
 					
 					<td>
 						<div class="row">
 						<div class="col s5"></div>
 						<div class="col s2">	
-						<form:input style="font-size:25px; display:inline;" class="ajaxbtn" id="${loop.index}" type="number" path="LineItems[${loop.index}].quantity" size="4" min="0" />
+						<form:input style="font-size:25px; display:inline;" class="ajaxbtn" id="${loop.index}" type="number" path="lineItems[${loop.index}].quantity" size="4" min="0" />
 						</div>
 						<div class="col s5"></div>
 						</div>
@@ -59,6 +59,8 @@
     <button style="width: 100%;" class="btn waves-effect waves-light btn-large" type="submit" >
     Continue and enter payment details
     </button>
+  
+    
     <br>
     
 </form:form>

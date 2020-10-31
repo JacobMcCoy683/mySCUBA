@@ -19,9 +19,13 @@ import edu.osu.cse5234.model.LineItem;
 @Table(name="CUSTOMER_ORDER")
 public class Order {
 
+	public Order() 
+    { 
+        System.out.println("Order Constructor called"); 
+    } 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="CUSTOMER_ORDER_ID_FK")
-	List<LineItem> LineItems;
+	List<LineItem> lineItems;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,11 +58,12 @@ public class Order {
 	public void setPaymentInfo(PaymentInfo paymentInfo) {
 		this.paymentInfo = paymentInfo;
 	}
+
 	public List<LineItem> getLineItems() {
-		return LineItems;
+		return lineItems;
 	}
 	public void setLineItems(List<LineItem> lineItems) {
-		LineItems = lineItems;
+		this.lineItems = lineItems;
 	}
 	public int getId() {
 		return id;

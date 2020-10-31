@@ -19,9 +19,18 @@ import edu.osu.cse5234.util.ServiceLocator;
 @Stateless
 @LocalBean
 public class OrderProcessingServiceBean {
+	@PersistenceContext
+	EntityManager entityManager;
 	
-	
-    /**
+    public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
+	/**
      * Default constructor. 
      */
     public OrderProcessingServiceBean() {
@@ -35,6 +44,8 @@ public class OrderProcessingServiceBean {
 //    			return "123456";
 //    		}
 //    	}
+    	entityManager.persist(order);
+    	entityManager.flush();
     	
     	return "56789";
     }

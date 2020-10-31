@@ -12,11 +12,11 @@
 <jsp:include page="./Header.jsp"></jsp:include>
 
 <div class="container">
-<form:form modelAttribute="order" method="post" action="confirmOrder">
 <h1>Please confirm your order!</h1>
 
 
 <h4>Order Details</h4>
+<form:form modelAttribute="order" method="POST" action="confirmOrder">
 
 <table class="centered highlight">
   <thead>
@@ -32,7 +32,7 @@
 	</th>
 	</tr>
 </thead>
-<c:forEach items="${order.LineItems}" var="item" varStatus="loop">
+<c:forEach items="${order.lineItems}" var="item" varStatus="loop">
 	
 	<tr> 
 		<td> <c:out value = "${item.name}"/> </td> 
@@ -96,8 +96,9 @@
     <br>
      <br>
       <br>
-</form:form>
+    </form:form>
 </div>
+
 <jsp:include page="./Footer.jsp"></jsp:include>
 </body>
 </html>

@@ -11,7 +11,7 @@
 <body>
 <jsp:include page="./Header.jsp"></jsp:include>
 <div class="container">
-<h4>Order Confirmed #78732</h4>
+<h4>Order Confirmed</h4>
 <h4>Order Details</h4>
 
 <table class="centered highlight">
@@ -28,7 +28,7 @@
 	</th>
 	</tr>
 </thead>
-<c:forEach items="${order.LineItems}" var="item" varStatus="loop">
+<c:forEach items="${order.lineItems}" var="item" varStatus="loop">
 	
 	<tr> 
 		<td> <c:out value = "${item.name}"/> </td> 

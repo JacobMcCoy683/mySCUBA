@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="ITEM")
+@Table(name="SHIPPING_INFO")
 public class ShippingInfo {
 
 	@Id
@@ -31,6 +31,9 @@ public class ShippingInfo {
 	
 	@Column(name="POSTAL_CODE")
 	String zip;
+	
+	@Column(name="COUNTRY")
+	String country;
 	
 	
 	

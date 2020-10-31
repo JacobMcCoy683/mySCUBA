@@ -23,8 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @Controller
 @RequestMapping("/purchase")
 public class Purchase {
-	@PersistenceContext
-	EntityManager entityManager;
+	
 //	@RequestMapping(path = "/qty", method = RequestMethod.GET)
 //	public void handleAjaxQuery(HttpServletRequest request, HttpServletResponse respone) throws Exception {
 //		Order curr_order = (Order)request.getSession().getAttribute("order");
@@ -40,24 +39,20 @@ public class Purchase {
 	@RequestMapping(method = RequestMethod.GET)
 	public String viewOrderEntryForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		request.getSession().setAttribute("validQuantity", true);
-		
-//		if(request.getSession().getAttribute("order") != null) {
-//			
-//			Order order = (Order)request.getSession().getAttribute("order");
-//			for(int i=0; i < order.getLineItems().size(); i++) {
-//				order.getLineItems().get(i).setQuantity(0);
-//			}
-//			request.setAttribute("order", order);
-//			
-//			//request.getSession().setAttribute("order", order);
-//		} else {
-			
+			//this always set validQuantity to true, hence error message is not shown
+			request.getSession().setAttribute("validQuantity", true);			
 			Order order  = new Order();
-			request.getSession().setAttribute("order", order);
-
 			Inventory inventory  = ServiceLocator.getInventoryService().getAvailableInventory();
-			request.getSession().setAttribute("inventory", inventory);
+
+			
+			ArrayList<LineItem> lineItems = new ArrayList<LineItem>();
+			for (int i = 0; i < inventory.getItems().size(); i++) {
+				lineItems.add(new LineItem());
+			}
+			order.setLineItems(lineItems);
+			
+			request.setAttribute("order", order);
+			request.setAttribute("inventory", inventory);
 //		}
 //			System.out.println(inventory.getItems());
 			
@@ -68,9 +63,9 @@ public class Purchase {
 	public String submitItems(@ModelAttribute("order") Order order, HttpServletRequest request) {
 		request.getSession().setAttribute("order", order);
 		System.out.println("SubmitSHIPPING"+order.getLineItems());
-
+		
 		if (ServiceLocator.getOrderProcessingService().validateItemAvailability(order)) {
-			entityManager.persist(order);
+			
 			
 			return "redirect:/purchase/paymentEntry";
 		} else {
@@ -93,7 +88,11 @@ public class Purchase {
 		
 		order.setPaymentInfo(payment);
 		
-		request.getSession().setAttribute("order", order);
+		//illogical name and email for Order
+		order.setCustomerName(payment.getCardHolderName());
+		order.setEmailAddress(order.getCustomerName()+"@company.com");
+		
+//		request.getSession().setAttribute("order", order);
 		
 		return "redirect:/purchase/shippingEntry";
 	}
@@ -111,8 +110,8 @@ public class Purchase {
 		Order order  = (Order) request.getSession().getAttribute("order");
 		
 		order.setShippingInfo(shipping);
-		
-		request.getSession().setAttribute("order", order);
+		//no need to set it back again, it gets updated automatically
+//		request.getSession().setAttribute("order", order);
 		
 		return "redirect:/purchase/viewOrder";
 	}
@@ -128,11 +127,11 @@ public class Purchase {
 		
 		String confirmationCode = ServiceLocator.getOrderProcessingService().processOrder(order);
 		request.getSession().setAttribute("confirmationCode", confirmationCode);
+		System.out.println(confirmationCode);
+//		if(order==null) System.out.println("ORDER IS NULL");
 
-		if(order==null) System.out.println("ORDER IS NULL");
-
-		request.getSession().setAttribute("order", order);
-		entityManager.flush();
+//		request.getSession().setAttribute("order", order);
+		
 		return "redirect:/purchase/viewConfirmation";
 	}
 	
