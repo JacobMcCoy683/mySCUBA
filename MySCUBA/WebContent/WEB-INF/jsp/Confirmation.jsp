@@ -28,7 +28,7 @@
 	</th>
 	</tr>
 </thead>
-<c:forEach items="${order.items}" var="item" varStatus="loop">
+<c:forEach items="${order.LineItems}" var="item" varStatus="loop">
 	
 	<tr> 
 		<td> <c:out value = "${item.name}"/> </td> 

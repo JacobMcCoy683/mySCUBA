@@ -1,14 +1,39 @@
 package edu.osu.cse5234.controller;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="ITEM")
 public class ShippingInfo {
 
-	String name;
-	String addressLine1;
-	String addressLine2;
-	String city;
-	String state;
-	String zip;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="ID")
 	int id;
+	
+	@Column(name="EMAIL")
+	String name;
+	
+	@Column(name="ADDRESS1")
+	String addressLine1;
+	
+	@Column(name="ADDRESS2")
+	String addressLine2;
+	@Column(name="CITY")
+	String city;
+	@Column(name="STATE")
+	String state;
+	
+	@Column(name="POSTAL_CODE")
+	String zip;
+	
+	
+	
 	public int getId() {
 		return id;
 	}

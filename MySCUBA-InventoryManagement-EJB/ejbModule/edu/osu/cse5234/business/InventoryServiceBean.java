@@ -36,33 +36,7 @@ public class InventoryServiceBean implements InventoryService {
 		List<Item> items = new ArrayList<>();
 		
 		items = entityManager.createQuery(MY_QUERY, Item.class).getResultList();
-		
-//		HashMap<String, String> products = new HashMap<>();
-//		products.put("BCD", "400.00");
-//		products.put("Fins", "150.00");
-//		products.put("Mask", "80.00");
-//		products.put("Regulator", "300.00");
-//		products.put("Tank", "250.00");
-//		
-//		List<String> availability = new ArrayList<String>(); 
-//		availability.add("10"); 
-//		availability.add("6"); 
-//		availability.add("3"); 
-//		availability.add("4"); 
-//		availability.add("5"); 
-//		
-//		Iterator<Map.Entry<String, String>> it = products.entrySet().iterator();
-//		int i=0;
-//		while (it.hasNext()) {
-//			Map.Entry<String, String> entry = it.next();
-//			Item item = new Item();
-//			item.setName(entry.getKey());
-//			item.setPrice(entry.getValue());
-//			item.setAvailable(availability.get(i));
-//			item.setQuantity("0");
-//			items.add(item);
-//			i++;
-//		}
+
 		Inventory in = new Inventory();
 		in.setItems(items);
 		
