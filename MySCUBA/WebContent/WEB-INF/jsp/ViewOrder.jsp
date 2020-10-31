@@ -32,7 +32,7 @@
 	</th>
 	</tr>
 </thead>
-<c:forEach items="${order.items}" var="item" varStatus="loop">
+<c:forEach items="${order.LineItems}" var="item" varStatus="loop">
 	
 	<tr> 
 		<td> <c:out value = "${item.name}"/> </td> 
@@ -58,10 +58,10 @@
 	</tr>
 	</thead>
 
-<tr><td>Credit Card Number</td><td>${payment.creditCardNumber}</td></tr>
-<tr><td>Expiration Date</td><td>${payment.expirationDate}</td></tr>
-<tr><td>cvv Code</td><td>${payment.cvvCode}</td></tr>
-<tr><td>Card Holder Name</td><td>${payment.cardHolderName}</td></tr>
+<tr><td>Credit Card Number</td><td>${order.payment.creditCardNumber}</td></tr>
+<tr><td>Expiration Date</td><td>${order.payment.expirationDate}</td></tr>
+<tr><td>cvv Code</td><td>${order.payment.cvvCode}</td></tr>
+<tr><td>Card Holder Name</td><td>${order.payment.cardHolderName}</td></tr>
 
 </table>
 
@@ -78,12 +78,12 @@
 	</th>
 	</tr>
 	</thead>
-<tr><td>Name</td><td> ${shipping.name}</td></tr>
-<tr><td>Address Line 1</td><td> ${shipping.addressLine1}</td></tr>
-<tr><td>Address Line 2</td><td> ${shipping.addressLine2}</td></tr>
-<tr><td>City</td><td> ${shipping.city}</td></tr>
-<tr><td>State</td><td> ${shipping.state}</td></tr>
-<tr><td>Zip</td><td> ${shipping.zip}</td></tr>
+<tr><td>Name</td><td> ${order.shipping.name}</td></tr>
+<tr><td>Address Line 1</td><td> ${order.shipping.addressLine1}</td></tr>
+<tr><td>Address Line 2</td><td> ${order.shipping.addressLine2}</td></tr>
+<tr><td>City</td><td> ${order.shipping.city}</td></tr>
+<tr><td>State</td><td> ${order.shipping.state}</td></tr>
+<tr><td>Zip</td><td> ${order.shipping.zip}</td></tr>
 </table>
 
 

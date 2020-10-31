@@ -1,6 +1,9 @@
 package edu.osu.cse5234.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import edu.osu.cse5234.business.view.Inventory;
 import edu.osu.cse5234.business.view.Item;
+import edu.osu.cse5234.model.LineItem;
 import edu.osu.cse5234.util.ServiceLocator;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,19 +55,35 @@ public class Purchase {
 		if(request.getSession().getAttribute("order") != null) {
 			
 			Order order = (Order)request.getSession().getAttribute("order");
-			for(int i=0; i < order.getItems().size(); i++) {
-				order.getItems().get(i).setQuantity(0);
+			for(int i=0; i < order.getLineItems().size(); i++) {
+				order.getLineItems().get(i).setQuantity(0);
 			}
 			request.setAttribute("order", order);
 			
 			//request.getSession().setAttribute("order", order);
 		} else {
 			
-			Order order = new Order();
-			order.setItems(ServiceLocator.getInventoryService().getAvailableInventory().getItems());
+//			Order order = new Order();
+//			List<LineItem> li = new ArrayList<LineItem>();
+//			List<Item> itemList = new ArrayList<Item>();
+//			itemList = ServiceLocator.getInventoryService().getAvailableInventory().getItems();
+//			
+//			for(int i=0;i<itemList.size();i++) {
+//				LineItem litem = new LineItem();
+//				litem.setId(itemList[i].get);
+//			}
 			
-			request.setAttribute("order", order);
+			
+			
+//			order.setLineItems(ServiceLocator.getInventoryService().getAvailableInventory().getItems());
+			
+//			request.setAttribute("order", order);
+//			request.getSession().setAttribute("order", order);
+			Order order  = new Order();
 			request.getSession().setAttribute("order", order);
+
+			Inventory inventory  = ServiceLocator.getInventoryService().getAvailableInventory();
+			request.getSession().setAttribute("inventory", inventory);
 		}
 			
 		return "OrderEntryForm";
@@ -71,7 +92,7 @@ public class Purchase {
 	@RequestMapping(path = "/submitItems", method = RequestMethod.POST)
 	public String submitItems(@ModelAttribute("order") Order order, HttpServletRequest request) {
 		request.getSession().setAttribute("order", order);
-		System.out.println("SubmitSHIPPING"+order.getItems());
+		System.out.println("SubmitSHIPPING"+order.getLineItems());
 
 		if (ServiceLocator.getOrderProcessingService().validateItemAvailability(order)) {
 			return "redirect:/purchase/paymentEntry";
@@ -90,7 +111,12 @@ public class Purchase {
 	
 	@RequestMapping(path = "/submitPayment", method = RequestMethod.POST)
 	public String submitPayment(@ModelAttribute("payment") PaymentInfo payment, HttpServletRequest request,HttpServletResponse respone) {
-		request.getSession().setAttribute("payment", payment);
+				
+		Order order  = (Order) request.getSession().getAttribute("order");
+		
+		order.setPaymentInfo(payment);
+		
+		request.getSession().setAttribute("order", order);
 		
 		return "redirect:/purchase/shippingEntry";
 	}
@@ -104,7 +130,12 @@ public class Purchase {
 	
 	@RequestMapping(path = "/submitShipping", method = RequestMethod.POST)
 	public String submitShipping(@ModelAttribute("shipping") ShippingInfo shipping, HttpServletRequest request,HttpServletResponse respone) throws IOException {
-		request.getSession().setAttribute("shipping", shipping);
+		
+		Order order  = (Order) request.getSession().getAttribute("order");
+		
+		order.setShippingInfo(shipping);
+		
+		request.getSession().setAttribute("order", order);
 		
 		return "redirect:/purchase/viewOrder";
 	}
@@ -122,7 +153,7 @@ public class Purchase {
 		request.getSession().setAttribute("confirmationCode", confirmationCode);
 
 		if(order==null) System.out.println("ORDER IS NULL");
-		System.out.println(order.getItems());
+		System.out.println(order.getLineItems());
 //		for(Item i: order.items) {
 //			int updated_available = Integer.parseInt(i.getAvailable())-Integer.parseInt(i.getQuantity());
 //			i.setAvailable(updated_available+"");

@@ -1,11 +1,18 @@
 package edu.osu.cse5234.controller;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+//@Entity
+//@Table(name="ITEM")
 public class PaymentInfo {
 	
 	String creditCardNumber;
 	String expirationDate;
 	String cvvCode;
 	String cardHolderName;
+	int id;
+	
 	
 	public String getCreditCardNumber() {
 		return creditCardNumber;
@@ -15,6 +22,14 @@ public class PaymentInfo {
 		this.creditCardNumber = creditCardNumber;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getExpirationDate() {
 		return expirationDate;
 	}
