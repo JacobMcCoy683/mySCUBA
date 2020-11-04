@@ -40,7 +40,10 @@ public class Purchase {
 	public String viewOrderEntryForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 			//this always set validQuantity to true, hence error message is not shown
-			request.getSession().setAttribute("validQuantity", true);			
+			if(request.getSession().getAttribute("validQuantity")==null) {
+				request.getSession().setAttribute("validQuantity", true);	
+			}
+//			request.getSession().setAttribute("validQuantity", true);			
 			Order order  = new Order();
 			Inventory inventory  = ServiceLocator.getInventoryService().getAvailableInventory();
 
@@ -66,10 +69,12 @@ public class Purchase {
 		
 		if (ServiceLocator.getOrderProcessingService().validateItemAvailability(order)) {
 			
-			
+			request.getSession().setAttribute("validQuantity", true);
 			return "redirect:/purchase/paymentEntry";
 		} else {
-			request.setAttribute("validQuantity", false);
+			request.getSession().setAttribute("validQuantity", false);
+//			request.setAttribute("errorMessage", "Amount of items ordered is too big. No more than 100 is currently available.");
+        // get back to order.jsp page using forward
 			return "redirect:/purchase";
 		}
 	}
