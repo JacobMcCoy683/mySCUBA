@@ -13,7 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import edu.osu.cse5234.business.view.Item;
 import edu.osu.cse5234.model.LineItem;
 @Entity
 @Table(name="CUSTOMER_ORDER")

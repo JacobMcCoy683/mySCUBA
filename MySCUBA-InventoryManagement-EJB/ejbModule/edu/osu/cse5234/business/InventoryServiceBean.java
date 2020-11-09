@@ -5,10 +5,7 @@ import edu.osu.cse5234.business.view.InventoryService;
 import edu.osu.cse5234.business.view.Item;
 
 import java.util.List;
-import java.util.Map;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
