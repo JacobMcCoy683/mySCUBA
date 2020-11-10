@@ -1,9 +1,16 @@
 package edu.osu.cse5234.business;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSConnectionFactory;
+import javax.jms.JMSContext;
+import javax.jms.Queue;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.persistence.EntityManager;
@@ -23,6 +30,8 @@ import edu.osu.cse5234.util.ServiceLocator;
 /**
  * Session Bean implementation class OrderProcessingServiceBean
  */
+@Resource(name="jms/emailQCF", lookup="jms/emailQCF", type=ConnectionFactory.class)
+
 @Stateless
 @LocalBean
 public class OrderProcessingServiceBean {
@@ -30,6 +39,13 @@ public class OrderProcessingServiceBean {
 	EntityManager entityManager;
 	
 	private static String SHIPPING_URI = "http://localhost:9080/UPS/services/shipping";
+	
+	@Inject
+	@JMSConnectionFactory("java:comp/env/jms/emailQCF")
+	private JMSContext jmsContext;
+	
+	@Resource(lookup="jms/emailQ")
+	private Queue queue;
 	
     public EntityManager getEntityManager() {
 		return entityManager;
@@ -46,6 +62,18 @@ public class OrderProcessingServiceBean {
         // TODO Auto-generated constructor stub
     }
 
+    private void notifyUser(Order order) {
+    	String message = order.getEmailAddress() + ":" +
+    		       "Your order was successfully submitted. " + 
+    		     	"You will hear from us when items are shipped. " + 
+    		      	new Date();
+
+    	System.out.println("Sending message: " + message);
+    	jmsContext.createProducer().send(queue, message);
+    	System.out.println("Message Sent!");
+
+    }
+    
     public String processOrder(Order order) {
 //    	InventoryService in = ServiceLocator.getInventoryService();
 //    	if (in.validateQuantity(order.getLineItems())) {
@@ -71,6 +99,8 @@ public class OrderProcessingServiceBean {
     	System.out.println("UPS accepted request? " + responseJson.getBoolean("Accepted"));
     	System.out.println("Shipping Reference Number: " + responseJson.getInt("ShippingReferenceNumber"));
     	client.close();
+    	
+    	notifyUser(order);
     	
     	return "56789";
     }
